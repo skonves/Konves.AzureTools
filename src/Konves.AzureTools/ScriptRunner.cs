@@ -44,6 +44,8 @@ namespace Konves.AzureTools
 					}
 				}
 
+				
+
 				TopicDescription topicDescription = Mappers.TopicMapper.Map(topic);
 
 				OnMessage($"Creating topic '{topic.Path}' ... ");
@@ -55,7 +57,10 @@ namespace Konves.AzureTools
 					SubscriptionDescription subscriptionDescription = Mappers.SubscriberMapper.Map(subscription, topic.Path);
 
 					OnMessage($"Creating subscription '{subscription.Name}' for topic '{topic.Path}' ... ");
-					ns.CreateSubscription(subscriptionDescription);
+					if (subscription.SqlFilter == null)
+						ns.CreateSubscription(subscriptionDescription);
+					else
+						ns.CreateSubscription(subscriptionDescription, new SqlFilter(subscription.SqlFilter));
 					OnMessage("done" + Environment.NewLine);
 				}
 			}

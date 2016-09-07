@@ -20,5 +20,7 @@ namespace Konves.AzureTools.Models
 		public string Name { get; set; }
 		public bool? RequiresSession { get; set; }
 		public string UserMetadata { get; set; }
+
+		public string SqlFilter { get; set; }
 	}
 }
